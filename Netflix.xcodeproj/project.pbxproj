@@ -17,6 +17,7 @@
 		8CAD4728293E179F00D50396 /* NetflixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD4727293E179F00D50396 /* NetflixTests.swift */; };
 		8CAD4732293E179F00D50396 /* NetflixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD4731293E179F00D50396 /* NetflixUITests.swift */; };
 		8CAD4734293E179F00D50396 /* NetflixUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD4733293E179F00D50396 /* NetflixUITestsLaunchTests.swift */; };
+		8CAD4745293E182700D50396 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD4744293E182700D50396 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		8CAD472D293E179F00D50396 /* NetflixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetflixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CAD4731293E179F00D50396 /* NetflixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetflixUITests.swift; sourceTree = "<group>"; };
 		8CAD4733293E179F00D50396 /* NetflixUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetflixUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8CAD4744293E182700D50396 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,10 @@
 		8CAD470C293E179D00D50396 /* Netflix */ = {
 			isa = PBXGroup;
 			children = (
+				8CAD4743293E17C300D50396 /* Model */,
+				8CAD4742293E17BD00D50396 /* ViewModel */,
+				8CAD4741293E17B800D50396 /* Views */,
+				8CAD4740293E17B000D50396 /* Controller */,
 				8CAD470D293E179D00D50396 /* AppDelegate.swift */,
 				8CAD470F293E179D00D50396 /* SceneDelegate.swift */,
 				8CAD4711293E179D00D50396 /* ViewController.swift */,
@@ -128,6 +134,35 @@
 				8CAD4733293E179F00D50396 /* NetflixUITestsLaunchTests.swift */,
 			);
 			path = NetflixUITests;
+			sourceTree = "<group>";
+		};
+		8CAD4740293E17B000D50396 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8CAD4744293E182700D50396 /* HomeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8CAD4741293E17B800D50396 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8CAD4742293E17BD00D50396 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8CAD4743293E17C300D50396 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CAD4745293E182700D50396 /* HomeViewController.swift in Sources */,
 				8CAD4712293E179D00D50396 /* ViewController.swift in Sources */,
 				8CAD470E293E179D00D50396 /* AppDelegate.swift in Sources */,
 				8CAD4718293E179D00D50396 /* Netflix.xcdatamodeld in Sources */,
