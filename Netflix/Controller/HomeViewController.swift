@@ -20,10 +20,29 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
+        
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        tableView.tableHeaderView?.backgroundColor = .black
+        configureNavigationBar()
     }
     
     override func viewDidLayoutSubviews() {
         tableView.frame = view.bounds
+    }
+    
+    func configureNavigationBar(){
+        var image = UIImage(named: "netflixLogo")
+        image = image?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "house"), style: .done, target: self, action: nil)
+        
+        navigationItem.rightBarButtonItems = [
+        
+        UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+        UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
+        ]
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.backgroundColor = .black
+     
     }
   
 

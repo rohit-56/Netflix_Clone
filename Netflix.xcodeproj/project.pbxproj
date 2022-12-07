@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8CA452BC2940822D0029FA2A /* HeroHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA452BB2940822D0029FA2A /* HeroHeaderView.swift */; };
 		8CAD470E293E179D00D50396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD470D293E179D00D50396 /* AppDelegate.swift */; };
 		8CAD4710293E179D00D50396 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD470F293E179D00D50396 /* SceneDelegate.swift */; };
 		8CAD4712293E179D00D50396 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAD4711293E179D00D50396 /* ViewController.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8CA452BB2940822D0029FA2A /* HeroHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderView.swift; sourceTree = "<group>"; };
 		8CAD470A293E179D00D50396 /* Netflix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Netflix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CAD470D293E179D00D50396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CAD470F293E179D00D50396 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				8CAD474E293E1A9F00D50396 /* MainTabbar.storyboard */,
 				8CAD4750293E38DB00D50396 /* CollectionViewTableViewCell.swift */,
+				8CA452BB2940822D0029FA2A /* HeroHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			files = (
 				8CAD4751293E38DB00D50396 /* CollectionViewTableViewCell.swift in Sources */,
 				8CAD474B293E1A0A00D50396 /* UpcomingViewController.swift in Sources */,
+				8CA452BC2940822D0029FA2A /* HeroHeaderView.swift in Sources */,
 				8CAD4745293E182700D50396 /* HomeViewController.swift in Sources */,
 				8CAD4749293E19F300D50396 /* SearchViewController.swift in Sources */,
 				8CAD474D293E1A7C00D50396 /* MainTabBarViewController.swift in Sources */,
