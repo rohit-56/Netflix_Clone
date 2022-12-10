@@ -30,23 +30,27 @@ class HomeViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
+    // MARK: Configuring Navigation Bar
     func configureNavigationBar(){
         var image = UIImage(named: "netflixLogo")
         image = image?.withRenderingMode(.alwaysOriginal)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "house"), style: .done, target: self, action: nil)
         
         navigationItem.rightBarButtonItems = [
-        
-        UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-        UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
+            
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
         ]
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.backgroundColor = .black
-     
+        
     }
   
 
 }
+
+// MARK: - Functionalities of TableView (No. of Rows , Sections , Row-Height)
+
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
