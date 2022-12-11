@@ -8,6 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+
     
     private var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -17,12 +18,13 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
         
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
-        tableView.tableHeaderView?.backgroundColor = .black
+        tableView.tableHeaderView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        
         configureNavigationBar()
     }
     
