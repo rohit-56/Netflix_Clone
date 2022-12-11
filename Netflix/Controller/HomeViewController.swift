@@ -8,6 +8,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+
+    let sectionsHeader = ["Trending Movies" ,"Trending Tv", "Popular" ,"Upcoming Movies","Top Rated"]
     
     private var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -17,12 +19,13 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = .black
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
         
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
-        tableView.tableHeaderView?.backgroundColor = .black
+        tableView.tableHeaderView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        
         configureNavigationBar()
     }
     
@@ -54,7 +57,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        20
+        sectionsHeader.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,6 +80,17 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         40
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        sectionsHeader[section]
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else {return}
+        headerView.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        headerView.textLabel?.frame = CGRect(x: headerView.bounds.origin.x + 20 , y: headerView.bounds.origin.y, width: 100, height: headerView.bounds.height)
+        headerView.textLabel?.textColor = .white
     }
     
     
