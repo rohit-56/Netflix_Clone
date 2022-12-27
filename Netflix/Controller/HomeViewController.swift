@@ -7,9 +7,18 @@
 
 import UIKit
 
+
+enum Sections : Int  {
+    case TrendingMovies = 0
+    case Popular = 1
+    case TrendingTvs = 2
+    case UpComingMovies = 3
+    case TopRated = 4
+}
+
 class HomeViewController: UIViewController {
 
-    let sectionsHeader = ["Trending Movies" ,"Trending Tv", "Popular" ,"Upcoming Movies","Top Rated"]
+    let sectionsHeader = ["Trending Movies" ,"Popular" ,"Trending Tv", "Upcoming Movies","Top Rated"]
     
     private var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -70,6 +79,62 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
         else{
             return UITableViewCell()
         }
+        
+        switch indexPath.section{
+        case Sections.TrendingMovies.rawValue:
+            APICaller.shared.getTrendingMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        case Sections.Popular.rawValue:
+            APICaller.shared.getPopular { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        case Sections.TrendingTvs.rawValue:
+            APICaller.shared.getTrendingTvs { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        case Sections.UpComingMovies.rawValue:
+            APICaller.shared.getUpcomingMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        case Sections.TopRated.rawValue:
+            APICaller.shared.getTopRated { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        default:
+            return UITableViewCell()
+        }
+         
         
         return cell
     }
