@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = .black
+        view.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
