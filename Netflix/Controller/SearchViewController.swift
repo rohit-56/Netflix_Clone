@@ -9,11 +9,20 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
+    private var titles = [Title]()
     
     private var serachTableView : UITableView = {
        let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(TitleTableViewCell.self , forCellReuseIdentifier: TitleTableViewCell.identifier)
         return tableView
+    }()
+    
+    
+    private var searchView : UISearchController = {
+       let searchView = UISearchController(searchResultsController: SearchResultsViewController())
+        searchView.searchBar.tintColor = .label
+        searchView.searchBar.placeholder = "Search a Movie or Tv Shows"
+        return searchView
     }()
 
     override func viewDidLoad() {
@@ -28,10 +37,11 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         
+        navigationItem.searchController = searchView
         
         view.addSubview(serachTableView)
         
-        
+       fetchMovies()
     }
     
     override func viewDidLayoutSubviews() {
@@ -39,16 +49,32 @@ class SearchViewController: UIViewController {
         serachTableView.frame = view.bounds
     }
     
+    func fetchMovies(){
+        APICaller.shared.getUpcomingMovies{ results in
+            switch results{
+            case .success(let titles):
+                self.titles = titles
+                DispatchQueue.main.async {
+                    self.serachTableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+            
+        }
+    }
+    
 }
 
 extension SearchViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        titles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .magenta
+        guard  let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else { return UITableViewCell()}
+        cell.configure(with: TitleViewModel(movie: titles[indexPath.row].original_title ?? titles[indexPath.row].title ?? "Unknown", poster: titles[indexPath.row].poster_path ?? "Unknown"))
         return cell
     }
     
