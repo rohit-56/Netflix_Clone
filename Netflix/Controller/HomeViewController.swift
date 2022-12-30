@@ -36,6 +36,7 @@ class HomeViewController: UIViewController {
         tableView.tableHeaderView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         
         configureNavigationBar()
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -79,6 +80,8 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
         else{
             return UITableViewCell()
         }
+        
+        cell.delegate = self
         
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
@@ -156,6 +159,20 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
         headerView.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         headerView.textLabel?.frame = CGRect(x: headerView.bounds.origin.x + 20 , y: headerView.bounds.origin.y, width: 100, height: headerView.bounds.height)
         headerView.textLabel?.textColor = .white
+    }
+    
+    
+}
+extension HomeViewController : CollectionViewTableViewCellDelegate {
+   
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, _ model: YoutubePreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = AboutMovieViewController()
+            vc.configure(with: model)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+       
     }
     
     

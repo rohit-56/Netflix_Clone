@@ -153,7 +153,7 @@ class APICaller{
         }
         task.resume()
     }
-    func getYoutubeResponseForSearchQuery(with query : String , completion: @escaping (Result<[VideoResponse],Error>) -> Void){
+    func getYoutubeResponseForSearchQuery(with query : String , completion: @escaping (Result<VideoResponse,Error>) -> Void){
         
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         
@@ -164,7 +164,7 @@ class APICaller{
             
             do{
                 let results = try JSONDecoder().decode(YoutubeResponse.self, from: data)
-                completion(.success(results.items))
+                completion(.success(results.items[0]))
             }catch{
                 completion(.failure(error))
             }
