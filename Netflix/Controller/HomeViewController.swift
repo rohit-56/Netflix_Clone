@@ -25,6 +25,8 @@ class HomeViewController: UIViewController {
         tableView.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         return tableView
     }()
+    
+    var heroHeaderView : HeroHeaderView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +34,39 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
-        
-        tableView.tableHeaderView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
-        
         configureNavigationBar()
+       
+            heroHeaderView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 500))
+           
+           setTableViewHeaderMoviesDynamically()
+        
+       
+       
+        tableView.tableHeaderView = heroHeaderView
 
     }
     
     override func viewDidLayoutSubviews() {
         tableView.frame = view.bounds
+    }
+    
+    func setTableViewHeaderMoviesDynamically(){
+       
+          
+            APICaller.shared.getTrendingMovies { [self] results in
+                switch results{
+                case .success(let titles):
+                    DispatchQueue.main.async { [self] in
+                        let titleUsed = titles.randomElement()
+                        heroHeaderView?.configure(with: TitleViewModel(movie: titleUsed?.title ?? titleUsed?.original_title ?? "Unknown", poster: titleUsed?.poster_path ?? "Unknown"))
+                    }
+                  
+                case .failure(let errors):
+                    print(errors.localizedDescription)
+                }
+            }
+
+       
     }
     
     // MARK: Configuring Navigation Bar

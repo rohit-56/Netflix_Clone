@@ -13,7 +13,7 @@ class HeroHeaderView : UIView {
     let imageView : UIImageView = {
        let imageView = UIImageView()
         imageView.image = UIImage(named: "caro1")
-        imageView.contentMode = .scaleAspectFill
+       // imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -83,5 +83,10 @@ class HeroHeaderView : UIView {
         
         gradientLayer.frame = bounds
         layer.addSublayer(gradientLayer)
+    }
+    
+    func configure(with model : TitleViewModel){
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.poster)") else {return}
+        imageView.sd_setImage(with: url,completed: nil)
     }
 }
