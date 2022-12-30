@@ -38,13 +38,16 @@ class HomeViewController: UIViewController {
        
             heroHeaderView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 500))
            
+        heroHeaderView?.delegate = self
            setTableViewHeaderMoviesDynamically()
         
-       
+        
        
         tableView.tableHeaderView = heroHeaderView
 
     }
+    
+ 
     
     override func viewDidLayoutSubviews() {
         tableView.frame = view.bounds
@@ -66,7 +69,7 @@ class HomeViewController: UIViewController {
                 }
             }
 
-       
+        
     }
     
     // MARK: Configuring Navigation Bar
@@ -203,3 +206,14 @@ extension HomeViewController : CollectionViewTableViewCellDelegate {
     
     
 }
+
+extension HomeViewController : HeroHeaderViewDelegate {
+    func actionClickOnPlay(_ button: HeroHeaderView, _ model: YoutubePreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = AboutMovieViewController()
+            vc.configure(with: model)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
