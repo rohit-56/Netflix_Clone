@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol HeroHeaderViewDelegate : AnyObject{
-    func actionClickOnPlay(_ button : HeroHeaderView ,_ model : YoutubePreviewViewModel)
+    func actionClickOnPlay(_ header : HeroHeaderView ,_ model : YoutubePreviewViewModel)
 }
 
 class HeroHeaderView : UIView {
@@ -49,8 +49,6 @@ class HeroHeaderView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         imageView.frame = bounds
-        
-        
         addSubview(imageView)
         addSubview(playButton)
         addSubview(downloadButton)
@@ -64,7 +62,6 @@ class HeroHeaderView : UIView {
     
  
     @objc func showMovieTrailer(){
-          print("This happen")
           APICaller.shared.getYoutubeResponseForSearchQuery(with: "Avengers" + " trailer") { [self] results in
               switch results{
               case .success(let videoResponse):

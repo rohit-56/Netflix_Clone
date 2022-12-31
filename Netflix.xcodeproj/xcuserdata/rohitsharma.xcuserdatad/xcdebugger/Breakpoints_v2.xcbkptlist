@@ -78,8 +78,8 @@
             filePath = "Netflix/Views/HeroHeaderView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "showMovieTrailer()"
             landmarkType = "7">
          </BreakpointContent>

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchControllerDelegate {
     
     private var titles = [Title]()
     
@@ -108,7 +108,7 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource {
     
 }
 
-extension SearchViewController : UISearchResultsUpdating {
+extension SearchViewController : UISearchResultsUpdating , SearchResultsViewControllerDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         
@@ -116,6 +116,7 @@ extension SearchViewController : UISearchResultsUpdating {
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               query.trimmingCharacters(in: .whitespaces).count >= 3 ,
               let resultsController = searchController.searchResultsController as? SearchResultsViewController else {return}
+        resultsController.delegate = self
     
         APICaller.shared.getSearchQueryResults(with : query){ results in
             
@@ -132,6 +133,16 @@ extension SearchViewController : UISearchResultsUpdating {
         }
         
     }
+    func collectionViewWhenTapOnCell(_ model: YoutubePreviewViewModel) {
+        print("helllooo")
+        print(model)
+        DispatchQueue.main.async { [weak self] in
+            let vc = AboutMovieViewController()
+            vc.configure(with: YoutubePreviewViewModel(movieName: model.movieName, overview: model.overview, videoDetails: model.videoDetails))
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     
 }
+

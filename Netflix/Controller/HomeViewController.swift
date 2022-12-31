@@ -208,7 +208,7 @@ extension HomeViewController : CollectionViewTableViewCellDelegate {
 }
 
 extension HomeViewController : HeroHeaderViewDelegate {
-    func actionClickOnPlay(_ button: HeroHeaderView, _ model: YoutubePreviewViewModel) {
+    func actionClickOnPlay(_ header: HeroHeaderView, _ model: YoutubePreviewViewModel) {
         DispatchQueue.main.async { [weak self] in
             let vc = AboutMovieViewController()
             vc.configure(with: model)
