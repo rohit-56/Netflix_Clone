@@ -8,7 +8,15 @@
 import Foundation
 import UIKit
 
+protocol HeroHeaderViewDelegate : AnyObject{
+    func actionClickOnPlay(_ header : HeroHeaderView ,_ model : YoutubePreviewViewModel)
+}
+
 class HeroHeaderView : UIView {
+    
+    private var currentMovieName : String?
+    
+    weak var delegate : HeroHeaderViewDelegate?
     
     let imageView : UIImageView = {
        let imageView = UIImageView()
@@ -23,6 +31,7 @@ class HeroHeaderView : UIView {
         playButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.layer.borderWidth = 1
         playButton.layer.borderColor = UIColor.white.cgColor
+        playButton.addTarget(self, action: #selector(showMovieTrailer), for: .touchUpInside)
         playButton.setTitle("Play", for: .normal)
         return playButton
     }()
@@ -40,8 +49,6 @@ class HeroHeaderView : UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         imageView.frame = bounds
-        
-        
         addSubview(imageView)
         addSubview(playButton)
         addSubview(downloadButton)
@@ -54,6 +61,20 @@ class HeroHeaderView : UIView {
     }
     
  
+    @objc func showMovieTrailer(){
+          APICaller.shared.getYoutubeResponseForSearchQuery(with: "Avengers" + " trailer") { [self] results in
+              switch results{
+              case .success(let videoResponse):
+                
+                    self.delegate?.actionClickOnPlay(self, YoutubePreviewViewModel(movieName: "Avengers", overview: "Avengers", videoDetails: videoResponse))
+                  
+              case .failure(let errors):
+                  print(errors.localizedDescription)
+              }
+              
+          }
+      }
+    
     func setComponentsConstraints(){
        let playButtonConstraints = [
         playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 80),
@@ -88,5 +109,6 @@ class HeroHeaderView : UIView {
     func configure(with model : TitleViewModel){
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(model.poster)") else {return}
         imageView.sd_setImage(with: url,completed: nil)
+        currentMovieName = model.movie
     }
 }

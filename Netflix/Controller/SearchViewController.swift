@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchControllerDelegate {
     
     private var titles = [Title]()
     
@@ -83,10 +83,32 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource {
         return 150
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        APICaller.shared.getYoutubeResponseForSearchQuery(with: titles[indexPath.row].title ?? titles[indexPath.row].original_title ?? "Unknown"){ [self] results in
+            switch results{
+            case .success(let videoResponse):
+                
+                guard let title = titles[indexPath.row].title else {return}
+                
+                guard let overview = titles[indexPath.row].overview else {return}
+                DispatchQueue.main.async { [weak self] in
+                    
+                    let vc = AboutMovieViewController()
+                    vc.configure(with: YoutubePreviewViewModel(movieName: title, overview: overview, videoDetails: videoResponse))
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
 }
 
-extension SearchViewController : UISearchResultsUpdating {
+extension SearchViewController : UISearchResultsUpdating , SearchResultsViewControllerDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         
@@ -94,6 +116,7 @@ extension SearchViewController : UISearchResultsUpdating {
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               query.trimmingCharacters(in: .whitespaces).count >= 3 ,
               let resultsController = searchController.searchResultsController as? SearchResultsViewController else {return}
+        resultsController.delegate = self
     
         APICaller.shared.getSearchQueryResults(with : query){ results in
             
@@ -110,6 +133,16 @@ extension SearchViewController : UISearchResultsUpdating {
         }
         
     }
+    func collectionViewWhenTapOnCell(_ model: YoutubePreviewViewModel) {
+        print("helllooo")
+        print(model)
+        DispatchQueue.main.async { [weak self] in
+            let vc = AboutMovieViewController()
+            vc.configure(with: YoutubePreviewViewModel(movieName: model.movieName, overview: model.overview, videoDetails: model.videoDetails))
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     
 }
+
