@@ -66,10 +66,34 @@ extension UpcomingViewController : UITableViewDataSource, UITableViewDelegate{
        guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else
         {return UITableViewCell()}
         cell.configure(with: TitleViewModel(movie: titles[indexPath.row].title ?? titles[indexPath.row].original_title ?? "Unknown", poster: titles[indexPath.row].poster_path ?? "Unknown"))
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       return  150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        APICaller.shared.getYoutubeResponseForSearchQuery(with: titles[indexPath.row].title ?? titles[indexPath.row].original_title ?? "Unknown"){ [self] results in
+            switch results{
+            case .success(let videoResponse):
+               
+                guard let title = titles[indexPath.row].title else {return}
+                
+                guard let overview = titles[indexPath.row].overview else {return}
+                DispatchQueue.main.async { [weak self] in
+                
+                    let vc = AboutMovieViewController()
+                    vc.configure(with: YoutubePreviewViewModel(movieName: title, overview: overview, videoDetails: videoResponse))
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
     }
 }
