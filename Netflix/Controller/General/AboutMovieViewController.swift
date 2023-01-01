@@ -38,6 +38,7 @@ class AboutMovieViewController: UIViewController {
         button.setTitle("Download", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .red
+        button.addTarget(self, action: #selector(addMovieDetailsInPersistence), for: .touchUpInside)
         return button
     }()
     
@@ -58,9 +59,8 @@ class AboutMovieViewController: UIViewController {
     }
     
     func configure(with model : YoutubePreviewViewModel){
-        movieName.text = model.movieName
-        overview.text = model.overview
-        print(model.videoDetails.id.videoId)
+        movieName.text = model.movieDetails.title
+        overview.text = model.movieDetails.overview
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.videoDetails.id.videoId)") else {return}
         
         wkWebView.load(URLRequest(url: url))
@@ -99,5 +99,7 @@ class AboutMovieViewController: UIViewController {
         NSLayoutConstraint.activate(overviewConstraints)
         NSLayoutConstraint.activate(downloadButtonConstraints)
     }
-
+    @objc func addMovieDetailsInPersistence(){
+        
+    }
 }

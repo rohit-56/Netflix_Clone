@@ -62,17 +62,19 @@ class HeroHeaderView : UIView {
     
  
     @objc func showMovieTrailer(){
+        /*
           APICaller.shared.getYoutubeResponseForSearchQuery(with: "Avengers" + " trailer") { [self] results in
               switch results{
               case .success(let videoResponse):
                 
-                    self.delegate?.actionClickOnPlay(self, YoutubePreviewViewModel(movieName: "Avengers", overview: "Avengers", videoDetails: videoResponse))
+                    self.delegate?.actionClickOnPlay(self, YoutubePreviewViewModel(movieDetails: , videoDetails: <#T##VideoResponse#>))
                   
               case .failure(let errors):
                   print(errors.localizedDescription)
               }
               
           }
+         */
       }
     
     func setComponentsConstraints(){

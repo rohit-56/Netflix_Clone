@@ -92,11 +92,14 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource {
                 
                 guard let title = titles[indexPath.row].title else {return}
                 
-                guard let overview = titles[indexPath.row].overview else {return}
+                let movieDetails : Title
+                
+                movieDetails = titles[indexPath.row]
+                
                 DispatchQueue.main.async { [weak self] in
                     
                     let vc = AboutMovieViewController()
-                    vc.configure(with: YoutubePreviewViewModel(movieName: title, overview: overview, videoDetails: videoResponse))
+                    vc.configure(with: YoutubePreviewViewModel(movieDetails: movieDetails, videoDetails: videoResponse))
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             case .failure(let error):
@@ -134,11 +137,9 @@ extension SearchViewController : UISearchResultsUpdating , SearchResultsViewCont
         
     }
     func collectionViewWhenTapOnCell(_ model: YoutubePreviewViewModel) {
-        print("helllooo")
-        print(model)
         DispatchQueue.main.async { [weak self] in
             let vc = AboutMovieViewController()
-            vc.configure(with: YoutubePreviewViewModel(movieName: model.movieName, overview: model.overview, videoDetails: model.videoDetails))
+            vc.configure(with: model)
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }

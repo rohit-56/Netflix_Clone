@@ -52,6 +52,10 @@ class CollectionViewTableViewCell: UITableViewCell {
             self?.collectionView.reloadData()
         }
     }
+    func downloadConfig(_ indexPath : IndexPath){
+        let title = titles[indexPath.row]
+    
+    }
 }
 extension CollectionViewTableViewCell : UICollectionViewDataSource, UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -73,18 +77,18 @@ extension CollectionViewTableViewCell : UICollectionViewDataSource, UICollection
         
         guard let title = titles[indexPath.row].title else {return}
         
+        let movieDetails : Title
+        
+        movieDetails = titles[indexPath.row]
+        
         APICaller.shared.getYoutubeResponseForSearchQuery(with: title + " trailer"){[weak self] results in
             switch results{
                 
             case .success(let videoResponse):
                 
-                guard let title = self?.titles[indexPath.row].title else {return}
-                
-                guard let overview = self?.titles[indexPath.row].overview else {return}
-                
                 guard let strongself = self else {return}
                 
-                self?.delegate?.collectionViewTableViewCellDidTapCell(strongself, YoutubePreviewViewModel(movieName: title, overview: overview, videoDetails: videoResponse))
+                self?.delegate?.collectionViewTableViewCellDidTapCell(strongself, YoutubePreviewViewModel(movieDetails: movieDetails,videoDetails: videoResponse))
                 
             case .failure(let error):
                 print(error.localizedDescription)
@@ -93,6 +97,17 @@ extension CollectionViewTableViewCell : UICollectionViewDataSource, UICollection
             
         }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfiguration configuration: UIContextMenuConfiguration, highlightPreviewForItemAt indexPath: IndexPath) -> UITargetedPreview? {
+      
+            let downloadAction = UIAction(title: "Download", state: .off){ _ in
+                print("Inside here")
+                self.downloadConfig(indexPath)
+            }
+            return UITargetedPreview(view: UIView())
+            
         
+       
     }
 }
