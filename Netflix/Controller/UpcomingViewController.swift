@@ -81,13 +81,14 @@ extension UpcomingViewController : UITableViewDataSource, UITableViewDelegate{
             switch results{
             case .success(let videoResponse):
                
-                guard let title = titles[indexPath.row].title else {return}
+                let movieDetails : Title
                 
-                guard let overview = titles[indexPath.row].overview else {return}
+                movieDetails = titles[indexPath.row]
+                
                 DispatchQueue.main.async { [weak self] in
                 
                     let vc = AboutMovieViewController()
-                    vc.configure(with: YoutubePreviewViewModel(movieName: title, overview: overview, videoDetails: videoResponse))
+                    vc.configure(with: YoutubePreviewViewModel(movieDetails: movieDetails, videoDetails: videoResponse))
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             case .failure(let error):
