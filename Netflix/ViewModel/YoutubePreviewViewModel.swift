@@ -10,8 +10,7 @@ import Foundation
 
 struct YoutubePreviewViewModel{
     
-    let movieName : String?
-    let overview  : String?
+    let movieDetails : Title
     let videoDetails : VideoResponse
     
 }
