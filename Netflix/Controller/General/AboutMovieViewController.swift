@@ -10,6 +10,8 @@ import WebKit
 
 class AboutMovieViewController: UIViewController {
     
+    private var youtubePreviewViewModel : YoutubePreviewViewModel?
+    
     private var wkWebView : WKWebView = {
        let wkWebView = WKWebView()
         wkWebView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +63,7 @@ class AboutMovieViewController: UIViewController {
     func configure(with model : YoutubePreviewViewModel){
         movieName.text = model.movieDetails.title
         overview.text = model.movieDetails.overview
+        youtubePreviewViewModel = model
         guard let url = URL(string: "https://www.youtube.com/embed/\(model.videoDetails.id.videoId)") else {return}
         
         wkWebView.load(URLRequest(url: url))
@@ -101,5 +104,16 @@ class AboutMovieViewController: UIViewController {
     }
     @objc func addMovieDetailsInPersistence(){
         
+        guard let model = youtubePreviewViewModel else {return}
+        
+        DataPersistenceManager.shared.saveDownloadTitleMovie(model.movieDetails){ results in
+            switch results{
+            case .success(_):
+                print("Save Movie Details")
+            case .failure(let errors):
+                print(errors)
+            }
+            
+        }
     }
 }
