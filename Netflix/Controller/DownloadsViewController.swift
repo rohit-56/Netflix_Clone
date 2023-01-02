@@ -37,10 +37,15 @@ class DownloadsViewController: UIViewController {
         downloadedMovies.frame = view.bounds
     }
     func showDownloadedMovies(){
-        DataPersistenceManager.shared.fetchTitleModelList{ results in
+        DataPersistenceManager.shared.fetchTitleModelList{ [self] results in
             switch results{
             case .success(let titleModel):
-                self.titles = titleModel
+                self.titles = titleModel    
+                print(titles.count)
+                DispatchQueue.main.async {
+                    self.downloadedMovies.reloadData()
+                    
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
