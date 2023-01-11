@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class TitleTableViewCell: UITableViewCell {
+class TitleTableViewCell: SwipeTableViewCell {
     
     static let identifier = "TitleTableViewCell"
     
