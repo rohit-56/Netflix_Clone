@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0DFE2D296EA1A80037A748 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8C0DFE2C296EA1A80037A748 /* SwipeCellKit */; };
 		8C109A112959F39900471807 /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C109A102959F39900471807 /* Title.swift */; };
 		8C109A132959F70D00471807 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C109A122959F70D00471807 /* TitleCollectionViewCell.swift */; };
 		8C109A162959FA1300471807 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8C109A152959FA1300471807 /* SDWebImage */; };
@@ -103,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C109A182959FA1300471807 /* SDWebImageMapKit in Frameworks */,
+				8C0DFE2D296EA1A80037A748 /* SwipeCellKit in Frameworks */,
 				8C109A162959FA1300471807 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +274,7 @@
 			packageProductDependencies = (
 				8C109A152959FA1300471807 /* SDWebImage */,
 				8C109A172959FA1300471807 /* SDWebImageMapKit */,
+				8C0DFE2C296EA1A80037A748 /* SwipeCellKit */,
 			);
 			productName = Netflix;
 			productReference = 8CAD470A293E179D00D50396 /* Netflix.app */;
@@ -347,6 +350,7 @@
 			mainGroup = 8CAD4701293E179D00D50396;
 			packageReferences = (
 				8C109A142959FA1300471807 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				8C0DFE2B296EA1A80037A748 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 			);
 			productRefGroup = 8CAD470B293E179D00D50396 /* Products */;
 			projectDirPath = "";
@@ -753,6 +757,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8C0DFE2B296EA1A80037A748 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
 		8C109A142959FA1300471807 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -764,6 +776,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8C0DFE2C296EA1A80037A748 /* SwipeCellKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C0DFE2B296EA1A80037A748 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
+			productName = SwipeCellKit;
+		};
 		8C109A152959FA1300471807 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8C109A142959FA1300471807 /* XCRemoteSwiftPackageReference "SDWebImage" */;
