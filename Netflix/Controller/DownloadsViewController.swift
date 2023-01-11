@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 class DownloadsViewController: UIViewController {
     
@@ -62,6 +63,8 @@ extension DownloadsViewController : UITableViewDelegate,UITableViewDataSource{
         guard  let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else {return UITableViewCell()}
         
         cell.configure(with: TitleViewModel(movie: titles[indexPath.row].original_title ?? titles[indexPath.row].title ?? "Unknown", poster: titles[indexPath.row].poster_path ?? "Unknown"))
+        
+        cell.delegate = self
         return cell
     }
     
@@ -70,4 +73,36 @@ extension DownloadsViewController : UITableViewDelegate,UITableViewDataSource{
     }
     
     
+}
+
+extension DownloadsViewController : SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [self] action, indexPath in
+            // handle action by updating model with deletion
+            DataPersistenceManager.shared.deleteDownloadTitleMovie(titles[indexPath.row]){ [self] results in
+                switch results{
+                case .success():
+                    titles.remove(at: indexPath.row)
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
+        }
+
+        // customize the action appearance
+        deleteAction.image = UIImage(systemName: "trash")
+
+        return [deleteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        options.transitionStyle = .border
+        return options
+    }
 }
